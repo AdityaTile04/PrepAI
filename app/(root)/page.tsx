@@ -17,7 +17,7 @@ const Home = () => {
           </Button>
         </div>
         <Image
-          src="robot.png"
+          src="/robot.png"
           alt="robo-dude"
           width={400}
           height={400}

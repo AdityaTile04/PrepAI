@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { ReactNode } from "react";
 
-const RootLayout = ({ childern }: { childern: ReactNode }) => {
+const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="root-layout">
       <nav>
@@ -11,7 +11,7 @@ const RootLayout = ({ childern }: { childern: ReactNode }) => {
           <h2 className="text-primary-100">PrepAI</h2>
         </Link>
       </nav>
-      {childern}
+      {children}
     </div>
   );
 };
