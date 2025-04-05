@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-
 import { Button } from "@/components/ui/button";
 import InterviewCard from "@/components/InterviewCard";
-
-import { getCurrentUser, getInterviewsByUserId, getLatestInterviews } from "@/lib/actions/auth.action";
-
+import { getCurrentUser } from "@/lib/actions/auth.action";
+import {
+  getInterviewsByUserId,
+  getLatestInterviews,
+} from "@/lib/actions/general.action";
 
 async function Home() {
   const user = await getCurrentUser();
@@ -47,15 +48,7 @@ async function Home() {
         <div className="interviews-section">
           {hasPastInterviews ? (
             userInterviews?.map((interview) => (
-              <InterviewCard
-                key={interview.id}
-                userId={user?.id}
-                interviewId={interview.id}
-                role={interview.role}
-                type={interview.type}
-                techstack={interview.techstack}
-                createdAt={interview.createdAt}
-              />
+              <InterviewCard {...interview} />
             ))
           ) : (
             <p>You haven&apos;t taken any interviews yet</p>
