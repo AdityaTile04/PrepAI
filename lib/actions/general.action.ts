@@ -6,8 +6,13 @@ import { google } from "@ai-sdk/google";
 import { generateObject } from "ai";
 
 export async function getInterviewsByUserId(
-  userId: string
+  userId?: string
 ): Promise<Interview[] | null> {
+  if (!userId) {
+    console.log("⚠️ getInterviewsByUserId called without userId");
+    return [];
+  }
+
   const interviews = await db
     .collection("interviews")
     .where("userId", "==", userId)
@@ -29,7 +34,7 @@ export async function getLatestInterviews(
     .collection("interviews")
     .orderBy("createdAt", "desc")
     .where("finalized", "==", true)
-    .where("userId", "!=", userId)
+    .where("userId", "!=", userId ?? "") // fallback if undefined
     .limit(limit)
     .get();
 
@@ -102,6 +107,11 @@ export async function getFeedbackByInterviewId(
   params: GetFeedbackByInterviewIdParams
 ): Promise<Feedback | null> {
   const { interviewId, userId } = params;
+
+  if (!interviewId || !userId) {
+    console.log("⚠️ getFeedbackByInterviewId missing interviewId/userId");
+    return null;
+  }
 
   const feedback = await db
     .collection("feedback")
